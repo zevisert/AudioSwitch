@@ -1,6 +1,6 @@
 # AudioSwitch-CLI
 
-This project is forked from [sirWest/AudioSwitch](sirWest/AudioSwitch). 
+This project is forked from [sirWest/AudioSwitch](https://github.com/sirWest/AudioSwitch). 
 
 The application in in this repo offers the functionality of AudioSwitch with all of its graphical components removed.
 AudioSwitch allows you to change the default audio device, select input or output devices, and change their volume. 
