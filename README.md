@@ -1,16 +1,12 @@
-# ![](/gh-pages/AudioSwitchLogoSmall.png)  AudioSwitch
-Switch between default audio input or output + change volume
+# AudioSwitch-CLI
 
-[AudioSwitch releases](https://github.com/sirWest/AudioSwitch/releases)
+This project is forked from [sirWest/AudioSwitch](sirWest/AudioSwitch). 
 
-[Discord chat server](https://discord.gg/mAyqAez)
+The application in in this repo offers the functionality of AudioSwitch with all of its graphical components removed.
+AudioSwitch allows you to change the default audio device, select input or output devices, and change their volume. 
+AudioSwitch-CLI does not run in the background. The application terminates as soon as the arguement is executed, so 
+nothing will appear in your system tray as AudioSwitch does. This fork is targeted at AutoHotKey users like myself 
+who are looking for a good way to bind a hotkey that allows them to quickly change the active audio device at the 
+push of a button.
 
-[AudioSwitch Facebook page](https://www.facebook.com/AudioSwitchSoftware)
-
-![](/gh-pages/output.png) ![](/gh-pages/input.png)
-
-Command-line parameters are renewed, get the new parameters by typing **AudioSwitch.exe /help**
-
-I'm in a process of moving things over from Google Code to here and therefore I kindly request to resubmit any issues that still exist also in the latest RC versions. Thank you guys!
-
-[![PayPal donate button](http://img.shields.io/paypal/donate.png?color=green)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3X7L4G8Y9CUUG "Donate once-off for this projects development using PayPal")
+Get started by typing `AudioSwitch.exe /help`
