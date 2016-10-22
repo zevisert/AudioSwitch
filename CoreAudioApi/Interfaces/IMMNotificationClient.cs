@@ -17,7 +17,6 @@
 // THE SOFTWARE.
 // -----------------------------------------
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace AudioSwitch.CoreAudioApi.Interfaces

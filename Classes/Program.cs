@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 using AudioSwitch.CoreAudioApi;
 
@@ -11,7 +9,6 @@ namespace AudioSwitch.Classes
 {
     internal static class Program
     {
-        static readonly Mutex mutex = new Mutex(true, "{579A9A19-7AE5-42CD-8147-E587F5C9DD50}");
         internal static string Root;
         internal static readonly string AppDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\AudioSwitch\\";
 
@@ -117,12 +114,11 @@ namespace AudioSwitch.Classes
 
                         }
                     }
-                    return;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return;
+                Console.WriteLine("An exception occured: {0}", ex.Message);
             }
         }
 

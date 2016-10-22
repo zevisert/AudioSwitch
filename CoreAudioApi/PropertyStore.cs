@@ -36,9 +36,9 @@ namespace AudioSwitch.CoreAudioApi
         {
             get
             {
-                int Result;
-                Marshal.ThrowExceptionForHR(_Store.GetCount(out Result));
-                return Result;
+                int result;
+                Marshal.ThrowExceptionForHR(_Store.GetCount(out result));
+                return result;
             }
         }
 

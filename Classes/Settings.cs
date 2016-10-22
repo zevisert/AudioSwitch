@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;
 using AudioSwitch.CoreAudioApi;
@@ -10,7 +9,7 @@ namespace AudioSwitch.Classes
     [XmlRoot, Serializable]
     public class Settings
     {
-        public static Settings newSettings()
+        public static Settings NewSettings()
         {
             return new Settings
             {
@@ -74,7 +73,7 @@ namespace AudioSwitch.Classes
             }
             catch
             {
-                var newsettings = newSettings();
+                var newsettings = NewSettings();
                 newsettings.Save();
                 return newsettings;
             }

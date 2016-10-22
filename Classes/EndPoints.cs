@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using AudioSwitch.CoreAudioApi;
 
@@ -36,19 +35,20 @@ namespace AudioSwitch.Classes
                 var devID = device.ID;
                 
                 var devSettings = Program.settings.Device.Find(x => x.DeviceID == devID);
-                if (devSettings == null || !devSettings.HideFromList)
-                {
-                    var devName = device.FriendlyName;
-                    DeviceNames.Add(devID, devName);
-                    DeviceIDs.Add(newCount, devID);
+
+                if (devSettings != null && devSettings.HideFromList)
+                    continue;
+
+                var devName = device.FriendlyName;
+                DeviceNames.Add(devID, devName);
+                DeviceIDs.Add(newCount, devID);
                     
-                    if (devID == defDeviceID)
-                    {
-                        DefaultDeviceID = newCount;
-                        DefaultDeviceName = devName;
-                    }
-                    newCount++;
+                if (devID == defDeviceID)
+                {
+                    DefaultDeviceID = newCount;
+                    DefaultDeviceName = devName;
                 }
+                newCount++;
             }
         }
 

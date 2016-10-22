@@ -60,9 +60,9 @@ namespace AudioSwitch.CoreAudioApi
         {
             get
             {
-                string Result;
-                Marshal.ThrowExceptionForHR(_RealDevice.GetId(out Result));
-                return Result;
+                string result;
+                Marshal.ThrowExceptionForHR(_RealDevice.GetId(out result));
+                return result;
             }
         }
 
