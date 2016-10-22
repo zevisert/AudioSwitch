@@ -3,7 +3,9 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+
 using AudioSwitch.CoreAudioApi;
+
 
 namespace AudioSwitch.Classes
 {
@@ -12,18 +14,6 @@ namespace AudioSwitch.Classes
         static readonly Mutex mutex = new Mutex(true, "{579A9A19-7AE5-42CD-8147-E587F5C9DD50}");
         internal static string Root;
         internal static readonly string AppDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\AudioSwitch\\";
-
-        [DllImport("user32.dll")]
-        private static extern bool SetProcessDPIAware();
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool AllocConsole();
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool FreeConsole();
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool AttachConsole(int dwProcessId);
 
         internal static Settings settings;
 
@@ -38,18 +28,12 @@ namespace AudioSwitch.Classes
             if (!Directory.Exists(AppDataRoot))
                 Directory.CreateDirectory(AppDataRoot);
 
-            try
-            {
+            try { 
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
                 settings = Settings.Load();
 
                 if (args.Length > 0)
                 {
-                    //if (!AttachConsole(-1))
-                    //    AllocConsole();
-
-                    Console.WriteLine();
-
                     var rType = settings.DefaultDataFlow;
 
                     for (var index = 0; index < args.Length; index++)
@@ -97,50 +81,48 @@ namespace AudioSwitch.Classes
                                 break;
 
                             case "s":
-                                index++;
-                                int devID;
-
-                                if (int.TryParse(args[index], out devID))
+                                if (++index < args.Length)
                                 {
-                                    EndPoints.RefreshDeviceList(rType);
-                                    if (devID <= EndPoints.DeviceNames.Count - 1)
+                                    int devID;
+                                    if (int.TryParse(args[index], out devID))
                                     {
-                                        EndPoints.SetDefaultDeviceByID(devID);
+                                        EndPoints.RefreshDeviceList(rType);
+                                        if (devID <= EndPoints.DeviceNames.Count - 1)
+                                        {
+                                            EndPoints.SetDefaultDeviceByID(devID);
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Error changing device!");
+                                            return;
+                                        }
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Error changing device!");
-                                        return;
+                                        EndPoints.RefreshDeviceList(rType);
+                                        if (!EndPoints.SetDefaultDeviceByName(args[index]))
+                                        {
+                                            Console.WriteLine("Error changing device!");
+                                            return;
+                                        }
                                     }
+                                    Console.WriteLine("Device changed to \"" + EndPoints.DefaultDeviceName + "\"");
                                 }
                                 else
                                 {
-                                    EndPoints.RefreshDeviceList(rType);
-                                    if (!EndPoints.SetDefaultDeviceByName(args[index]))
-                                    {
-                                        Console.WriteLine("Error changing device!");
-                                        return;
-                                    }
+                                    Console.WriteLine("Error changing device - s option requires a string or number");
+                                    return;
                                 }
-                                Console.WriteLine("Device changed to \"" + EndPoints.DefaultDeviceName + "\"");
                                 break;
+
                         }
                     }
-
                     return;
                 }
-
-                if (mutex.WaitOne(0, false))
-                {
-                    if (Environment.OSVersion.Version.Major >= 6)
-                        SetProcessDPIAware();
-
-                    mutex.Close();
-                }
             }
-            finally
+            catch
             {
-                // ?
+                return;
             }
         }
 
@@ -159,9 +141,9 @@ namespace AudioSwitch.Classes
                     w.Close();
                 }
             }
-            finally
+            catch
             {
-                // ?
+                Console.WriteLine("Failed to update log");
             }
         }
     }
