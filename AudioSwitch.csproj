@@ -93,6 +93,11 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Windows" />
@@ -100,11 +105,6 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Compile Include="Classes\EndPoints.cs" />
-    <Compile Include="Classes\OSDskin.cs" />
-    <Compile Include="Classes\ScrollVolume.cs" />
-    <Compile Include="Classes\Win32.cs" />
-    <Compile Include="Classes\GlobalHotkeys.cs" />
-    <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="CoreAudioApi\AudioEndpointVolume.cs">
       <SubType>Code</SubType>
@@ -113,20 +113,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CoreAudioApi\AudioEndpointVolumeNotificationDelegate.cs" />
-    <Compile Include="CoreAudioApi\AudioMeterInformation.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CoreAudioApi\AudioMeterInformationChannels.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="CoreAudioApi\AudioVolumeNotificationData.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CoreAudioApi\EDeviceState.cs" />
-    <Compile Include="CoreAudioApi\EDataFlow.cs">
+    <Compile Include="CoreAudioApi\Enums\EDeviceState.cs" />
+    <Compile Include="CoreAudioApi\Enums\EDataFlow.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CoreAudioApi\ERole.cs">
+    <Compile Include="CoreAudioApi\Enums\ERole.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CoreAudioApi\Interfaces\AUDIO_VOLUME_NOTIFICATION_DATA.cs">
@@ -178,7 +172,6 @@
     <Compile Include="CoreAudioApi\MMDeviceEnumerator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CoreAudioApi\MMDeviceNotifyClient.cs" />
     <Compile Include="CoreAudioApi\PKEY.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -197,52 +190,8 @@
     <Compile Include="CoreAudioApi\PropVariant.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\CustomListView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\DeviceIcons.cs" />
-    <Compile Include="Forms\FormOSD.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormOSD.Designer.cs">
-      <DependentUpon>FormOSD.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormSettings.Designer.cs">
-      <DependentUpon>FormSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormSwitcher.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormSwitcher.Designer.cs">
-      <DependentUpon>FormSwitcher.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\LedBar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\LedBar.Designer.cs">
-      <DependentUpon>LedBar.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\Program.cs" />
-    <Compile Include="Controls\VolumeBar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\VolumeBar.designer.cs">
-      <DependentUpon>VolumeBar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GlobalHook\HookManager.Callbacks.cs" />
-    <Compile Include="GlobalHook\HookManager.cs" />
-    <Compile Include="GlobalHook\HookManager.Structures.cs" />
-    <Compile Include="GlobalHook\HookManager.Windows.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\WindowPosition.cs" />
     <Reference Include="System.XML" />
     <Reference Include="UIAutomationClient" />
     <Reference Include="Windows.Data">
@@ -260,133 +209,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\CustomListView.resx">
-      <DependentUpon>CustomListView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormOSD.resx">
-      <DependentUpon>FormOSD.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSettings.resx">
-      <DependentUpon>FormSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSwitcher.resx">
-      <DependentUpon>FormSwitcher.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\LedBar.resx">
-      <DependentUpon>LedBar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\VolumeBar.resx">
-      <DependentUpon>VolumeBar.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Resources\shadow.png" />
-    <Content Include="Skins\Default\back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Default\meter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Default\mute.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Default\skin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Grey volume\Back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Grey volume\Meter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Grey volume\Meter_Effect.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Grey volume\Mute.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Grey volume\Skin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Small Glass\back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Small Glass\meter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Small Glass\mute.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Small Glass\skin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Skins\Ice\back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Ice\meter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Ice\mute.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Ice\skin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Ignition\back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Ignition\meter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Ignition\mute.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Ignition\skin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\ishom\back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\ishom\meter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\ishom\mute.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\ishom\skin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\PiX\back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\PiX\meter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\PiX\mute.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\PiX\skin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Squared\back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Squared\meter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Squared\mute.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\Squared\skin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="app.manifest" />
     <None Include="Resources\spkr.png" />
     <None Include="Resources\mute_highDPI.png" />

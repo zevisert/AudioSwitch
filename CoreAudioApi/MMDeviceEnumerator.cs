@@ -58,16 +58,6 @@ namespace AudioSwitch.CoreAudioApi
         }
 
         /// <summary>
-        /// Registers a client's notification callback interface.
-        /// </summary>
-        /// <param name="client">The <see cref="IMMNotificationClient"/> interface that the client is registering for notification callbacks.</param>
-        /// <returns>An HRESULT code indicating whether the operation passed of failed.</returns>
-        public void RegisterEndpointNotificationCallback(IMMNotificationClient client)
-        {
-            Marshal.ThrowExceptionForHR(_realEnumerator.RegisterEndpointNotificationCallback(client));
-        }
-
-        /// <summary>
         /// Deletes the registration of a notification interface that the client registered in a previous call
         /// to the <see cref="IMMDeviceEnumerator.RegisterEndpointNotificationCallback"/> method.
         /// </summary>

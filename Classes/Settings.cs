@@ -15,29 +15,9 @@ namespace AudioSwitch.Classes
             return new Settings
             {
                 DefaultDataFlow = EDataFlow.eRender,
-                //DefaultMultimediaAndComm = false,
-                //ColorVU = false,
-                ShowHardwareName = true,
-                //QuickSwitchEnabled = false,
-                QuickSwitchShowOSD = true,
-
-                OSD = new COSD
-                {
-                    Skin = "Default",
-                    Left = 61,
-                    Top = 26,
-                    ClosingTimeout = 1300,
-                    Transparency = 255
-                },
-
-                VolumeScroll = new CVolScroll
-                {
-                    Key = VolumeScrollKey.LWin,
-                    ShowOSD = true
-                    //, Enabled = false
-                },
                 Device = new List<CDevice>(),
-                Hotkey = new BindingList<Hotkey>()
+                ShowHardwareName = true
+                //QuickSwitchEnabled = false,
             };
         }
 
@@ -48,69 +28,11 @@ namespace AudioSwitch.Classes
         public EDataFlow DefaultDataFlow;
 
         [XmlElement]
-        public bool DefaultMultimediaAndComm;
-
-        [XmlElement]
-        public bool ColorVU;
-
-        [XmlElement]
         public bool ShowHardwareName;
 
         [XmlElement]
-        public bool QuickSwitchEnabled;
-
-        [XmlElement]
-        public bool QuickSwitchShowOSD;
-
-        [XmlElement]
-        public bool UseCustomOSD;
-
-        [XmlElement]
-        public COSD OSD;
-
-        public class COSD
-        {
-            [XmlAttribute]
-            public string Skin;
-
-            [XmlAttribute]
-            public int Left;
-
-            [XmlAttribute]
-            public int Top;
-
-            [XmlAttribute]
-            public int ClosingTimeout;
-
-            [XmlAttribute]
-            public byte Transparency;
-        }
-
-        [XmlElement]
-        public CVolScroll VolumeScroll;
-
-        public class CVolScroll
-        {
-            [XmlAttribute]
-            public bool Enabled
-            {
-                get { return ScrollVolume.IsEnabled; }
-                set { ScrollVolume.RegisterVolScroll(value); }
-            }
-
-            [XmlAttribute]
-            public VolumeScrollKey Key;
-
-            [XmlAttribute]
-            public bool ShowOSD;
-        }
-
-        [XmlElement]
-        public BindingList<Hotkey> Hotkey;
-
-        [XmlElement]
         public List<CDevice> Device;
- 
+
         public class CDevice
         {
             [XmlAttribute]

@@ -31,7 +31,6 @@ namespace AudioSwitch.CoreAudioApi
     {
         private readonly IMMDevice _RealDevice;
         private PropertyStore _PropertyStore;
-        private AudioMeterInformation _AudioMeterInformation;
         private AudioEndpointVolume _AudioEndpointVolume;
 
         private static Guid IID_IAudioMeterInformation = typeof(IAudioMeterInformation).GUID;
@@ -44,29 +43,11 @@ namespace AudioSwitch.CoreAudioApi
             return new PropertyStore(propstore);
         }
 
-        private void GetAudioMeterInformation()
-        {
-            object result;
-            Marshal.ThrowExceptionForHR(_RealDevice.Activate(ref IID_IAudioMeterInformation, CLSCTX.ALL, IntPtr.Zero, out result));
-            _AudioMeterInformation = new AudioMeterInformation(result as IAudioMeterInformation);
-        }
-
         private void GetAudioEndpointVolume()
         {
             object result;
             Marshal.ThrowExceptionForHR(_RealDevice.Activate(ref IID_IAudioEndpointVolume, CLSCTX.ALL, IntPtr.Zero, out result));
             _AudioEndpointVolume = new AudioEndpointVolume(result as IAudioEndpointVolume);
-        }
-
-        public AudioMeterInformation AudioMeterInformation
-        {
-            get
-            {
-                if (_AudioMeterInformation == null)
-                    GetAudioMeterInformation();
-
-                return _AudioMeterInformation;
-            }
         }
 
         public AudioEndpointVolume AudioEndpointVolume
@@ -93,18 +74,6 @@ namespace AudioSwitch.CoreAudioApi
 
                 if (_PropertyStore.Contains(nameGuid))
                     return (string)_PropertyStore[nameGuid].PropVariant.GetValue();
-                return "Unknown";
-            }
-        }
-
-        public string IconPath
-        {
-            get
-            {
-                if (_PropertyStore == null)
-                    _PropertyStore = GetPropertyInformation();
-                if (_PropertyStore.Contains(PKEY.PKEY_DeviceClass_IconPath))
-                    return (string)_PropertyStore[PKEY.PKEY_DeviceClass_IconPath].PropVariant.GetValue();
                 return "Unknown";
             }
         }

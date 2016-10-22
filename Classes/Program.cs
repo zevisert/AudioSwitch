@@ -3,9 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
 using AudioSwitch.CoreAudioApi;
-using AudioSwitch.Forms;
 
 namespace AudioSwitch.Classes
 {
@@ -27,8 +25,6 @@ namespace AudioSwitch.Classes
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool AttachConsole(int dwProcessId);
 
-        internal static FormOSD frmOSD;
-        private static bool isConsole;
         internal static Settings settings;
 
         [STAThread]
@@ -51,14 +47,10 @@ namespace AudioSwitch.Classes
                 {
                     if (!AttachConsole(-1))
                         AllocConsole();
-                    isConsole = true;
+
                     Console.WriteLine();
 
-                    var hotkeyFunction = HotkeyFunction.NextPlaybackDevice;
-                    var modifiers = HotModifierKeys.LWin;
-                    var hotKey = Keys.LWin;
                     var rType = settings.DefaultDataFlow;
-                    var keysOK = 0;
 
                     for (var index = 0; index < args.Length; index++)
                     {
@@ -137,67 +129,7 @@ namespace AudioSwitch.Classes
                                 }
                                 Console.WriteLine("Device changed to \"" + EndPoints.DefaultDeviceName + "\"");
                                 break;
-
-                            case "m":
-                                if (index == args.Length - 1)
-                                {
-                                    Console.WriteLine("Modifier keys:");
-                                    Console.WriteLine(string.Join(", ", Enum.GetNames(typeof(HotModifierKeys))));
-                                    return;
-                                }
-                                index++;
-                                if (!Enum.TryParse(args[index], true, out modifiers))
-                                {
-                                    Console.WriteLine("Error reading modifier key(s)!");
-                                    return;
-                                }
-                                Console.WriteLine("Modifier key(s) set to " + modifiers);
-                                keysOK++;
-                                break;
-
-                            case "k":
-                                if (index == args.Length - 1)
-                                {
-                                    Console.WriteLine("Keys:");
-                                    Console.WriteLine(string.Join(", ", Enum.GetNames(typeof(Keys))));
-                                    return;
-                                }
-                                index++;
-                                if (!Enum.TryParse(args[index], true, out hotKey))
-                                {
-                                    Console.WriteLine("Error reading hot key!");
-                                    return;
-                                }
-                                Console.WriteLine("Hot key set to " + hotKey);
-                                keysOK++;
-                                break;
-
-                            case "f":
-                                if (index == args.Length - 1)
-                                {
-                                    Console.WriteLine("Function names:");
-                                    Console.WriteLine(string.Join(", ", Enum.GetNames(typeof(HotkeyFunction))));
-                                    return;
-                                }
-                                index++;
-                                if (!Enum.TryParse(args[index], true, out hotkeyFunction))
-                                {
-                                    Console.WriteLine("Error reading function name!");
-                                    return;
-                                }
-                                Console.WriteLine("Hot key function set to " + hotkeyFunction);
-                                keysOK++;
-                                break;
                         }
-                    }
-
-                    if (keysOK == 3)
-                    {
-                        var hkey = GlobalHotkeys.AddOrFind(hotkeyFunction);
-                        hkey.ModifierKeys = modifiers;
-                        hkey.HotKey = hotKey;
-                        Console.WriteLine("Hot key saved:  {0} => {1} + {2}", hotkeyFunction, modifiers, hotKey);
-                        settings.Save();
                     }
 
                     return;
@@ -208,21 +140,13 @@ namespace AudioSwitch.Classes
                     if (Environment.OSVersion.Version.Major >= 6)
                         SetProcessDPIAware();
 
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    frmOSD = new FormOSD();
-                    var formSwitcher = new FormSwitcher();
-                    Application.Run();
                     mutex.Close();
                 }
             }
             finally
             {
-                if (isConsole)
-                {
-                    SendKeys.SendWait("{ENTER}");
+                    System.Windows.Forms.SendKeys.SendWait("{ENTER}");
                     FreeConsole();
-                }
             }
         }
 
@@ -240,14 +164,10 @@ namespace AudioSwitch.Classes
                     w.Flush();
                     w.Close();
                 }
-                MessageBox.Show("An unexpected error has occurred - AudioSwitch will now close :(" + Environment.NewLine +
-                                "Error messages are written to a log file 'ErrorLog.txt' in the installation folder. " + Environment.NewLine + 
-                                "Please create an issue in GitHub issue tracker page with the contents of the log file.",
-                                "AudioSwitch - Unexpected Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
             }
         }
     }

@@ -11,7 +11,6 @@ namespace AudioSwitch.Classes
         internal static string DefaultDeviceName;
 
         internal static readonly MMDeviceEnumerator DeviceEnumerator;
-        public static readonly MMDeviceNotifyClient NotifyClient;
         private static readonly Dictionary<int, string> DeviceIDs = new Dictionary<int, string>();
         public static readonly Dictionary<string, string> DeviceNames = new Dictionary<string, string>(); 
         private static readonly PolicyConfigClient pPolicyConfig = new PolicyConfigClient();
@@ -19,8 +18,6 @@ namespace AudioSwitch.Classes
         static EndPoints()
         {
             DeviceEnumerator = new MMDeviceEnumerator();
-            NotifyClient = new MMDeviceNotifyClient();
-            DeviceEnumerator.RegisterEndpointNotificationCallback(NotifyClient);
         }
 
         internal static void RefreshDeviceList(EDataFlow renderType)
@@ -86,16 +83,16 @@ namespace AudioSwitch.Classes
             return DeviceEnumerator.GetDefaultAudioEndpoint(renderType, ERole.eMultimedia);
         }
         
-        internal static Dictionary<MMDevice, Icon> GetAllDeviceList()
+        internal static List<MMDevice> GetAllDeviceList()
         {
-            var devices = new Dictionary<MMDevice, Icon>();
+            var devices = new List<MMDevice>();
             var pDevices = DeviceEnumerator.EnumerateAudioEndPoints(EDataFlow.eAll, EDeviceState.Active);
             var devCount = pDevices.Count;
 
             for (var i = 0; i < devCount; i++)
             {
                 var device = pDevices[i];
-                devices.Add(device, DeviceIcons.GetIcon(device.IconPath));
+                devices.Add(device);
             }
 
             return devices;
@@ -122,8 +119,6 @@ namespace AudioSwitch.Classes
         internal static void SetDefaultDevice(string devID)
         {
             pPolicyConfig.SetDefaultEndpoint(devID, ERole.eMultimedia);
-            if (Program.settings.DefaultMultimediaAndComm)
-                pPolicyConfig.SetDefaultEndpoint(devID, ERole.eCommunications);
         }
     }
 }
