@@ -31,34 +31,12 @@ namespace AudioSwitch.CoreAudioApi
     {
         private readonly IMMDevice _RealDevice;
         private PropertyStore _PropertyStore;
-        private AudioEndpointVolume _AudioEndpointVolume;
-
-        private static Guid IID_IAudioMeterInformation = typeof(IAudioMeterInformation).GUID;
-        private static Guid IID_IAudioEndpointVolume = typeof(IAudioEndpointVolume).GUID;
 
         private PropertyStore GetPropertyInformation()
         {
             IPropertyStore propstore;
             Marshal.ThrowExceptionForHR(_RealDevice.OpenPropertyStore(EStgmAccess.STGM_READ, out propstore));
             return new PropertyStore(propstore);
-        }
-
-        private void GetAudioEndpointVolume()
-        {
-            object result;
-            Marshal.ThrowExceptionForHR(_RealDevice.Activate(ref IID_IAudioEndpointVolume, CLSCTX.ALL, IntPtr.Zero, out result));
-            _AudioEndpointVolume = new AudioEndpointVolume(result as IAudioEndpointVolume);
-        }
-
-        public AudioEndpointVolume AudioEndpointVolume
-        {
-            get
-            {
-                if (_AudioEndpointVolume == null)
-                    GetAudioEndpointVolume();
-
-                return _AudioEndpointVolume;
-            }
         }
 
         public string FriendlyName

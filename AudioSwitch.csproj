@@ -6,8 +6,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{27E9D710-5098-4F59-8E81-412B63705301}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <AssemblyName>AudioSwitch</AssemblyName>
-    <OutputType>WinExe</OutputType>
+    <AssemblyName>AudioSwitch-CLI</AssemblyName>
+    <OutputType>Exe</OutputType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -58,7 +58,8 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>Resources\appicon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>AudioSwitch.Classes.Program</StartupObject>
@@ -93,11 +94,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Windows" />
@@ -106,24 +102,11 @@
     <Reference Include="System.Drawing" />
     <Compile Include="Classes\EndPoints.cs" />
     <Compile Include="Classes\Settings.cs" />
-    <Compile Include="CoreAudioApi\AudioEndpointVolume.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CoreAudioApi\AudioEndpointVolumeCallback.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CoreAudioApi\AudioEndpointVolumeNotificationDelegate.cs" />
-    <Compile Include="CoreAudioApi\AudioVolumeNotificationData.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="CoreAudioApi\Enums\EDeviceState.cs" />
     <Compile Include="CoreAudioApi\Enums\EDataFlow.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CoreAudioApi\Enums\ERole.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CoreAudioApi\Interfaces\AUDIO_VOLUME_NOTIFICATION_DATA.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CoreAudioApi\Interfaces\Blob.cs">
@@ -133,15 +116,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CoreAudioApi\Interfaces\eStgmAccess.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CoreAudioApi\Interfaces\IAudioEndpointVolume.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CoreAudioApi\Interfaces\IAudioEndpointVolumeCallback.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CoreAudioApi\Interfaces\IAudioMeterInformation.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CoreAudioApi\Interfaces\IMMDevice.cs">
@@ -209,32 +183,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
-    <None Include="Resources\shadow.png" />
     <None Include="app.manifest" />
-    <None Include="Resources\spkr.png" />
-    <None Include="Resources\mute_highDPI.png" />
-    <None Include="Resources\zero_highDPI.png" />
-    <None Include="Resources\zero.png" />
-    <None Include="Resources\1-33.png" />
-    <None Include="Resources\33-66.png" />
-    <None Include="Resources\66-100.png" />
-    <None Include="Resources\1-33_highDPI.png" />
-    <None Include="Resources\33-66_highDPI.png" />
-    <None Include="Resources\66-100_highDPI.png" />
-    <Content Include="Resources\appicon.ico" />
-    <None Include="Resources\mute.png" />
-    <None Include="Resources\defaultDevice.png" />
-    <None Include="Resources\ThumbHover.png" />
-    <None Include="Resources\ThumbMute.png" />
-    <None Include="Resources\ThumbNormal.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -257,5 +207,8 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx" />
   </ItemGroup>
 </Project>

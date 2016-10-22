@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AudioSwitch")]
-[assembly: AssemblyDescription("AudioSwitch")]
+[assembly: AssemblyTitle("AudioSwitch-CLI")]
+[assembly: AssemblyDescription("AudioSwitch-CLI")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AudioSwitch")]
-[assembly: AssemblyCopyright("Copyright © Tanel Teede 2016")]
+[assembly: AssemblyProduct("AudioSwitch-CLI")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ba01d5b9-5a25-48f0-b9ca-11b11ce90b9b")]
+[assembly: Guid("0F93102A-9726-4055-9AC3-EFA49BA0E482")]
 
 // Version information for an assembly consists of the following four values:
 //

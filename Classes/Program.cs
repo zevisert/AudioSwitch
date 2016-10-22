@@ -45,8 +45,8 @@ namespace AudioSwitch.Classes
 
                 if (args.Length > 0)
                 {
-                    if (!AttachConsole(-1))
-                        AllocConsole();
+                    //if (!AttachConsole(-1))
+                    //    AllocConsole();
 
                     Console.WriteLine();
 
@@ -73,11 +73,6 @@ namespace AudioSwitch.Classes
                                 Console.WriteLine("  /l - list all available devices of the selected type, < > is current default.");
                                 Console.WriteLine("  /s - set a device as default: number for index, string for name.");
                                 Console.WriteLine();
-                                Console.WriteLine("  /m - set modifier keys for a new hotkey, separated by commas. Case sensitive.");
-                                Console.WriteLine("  /k - set a key for a new hotkey. Case sensitive.");
-                                Console.WriteLine("  /f - choose a function for the new hotkey. Case sensitive.");
-                                Console.WriteLine();
-                                Console.WriteLine("  /m, /k, /f (blank) - shows all possible values for the parameter.");
                                 break;
 
                             case "i":
@@ -145,8 +140,7 @@ namespace AudioSwitch.Classes
             }
             finally
             {
-                    System.Windows.Forms.SendKeys.SendWait("{ENTER}");
-                    FreeConsole();
+                // ?
             }
         }
 
@@ -167,7 +161,7 @@ namespace AudioSwitch.Classes
             }
             finally
             {
-                System.Windows.Forms.Application.Exit();
+                // ?
             }
         }
     }
