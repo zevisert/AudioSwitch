@@ -9,4 +9,24 @@ nothing will appear in your system tray as AudioSwitch does. This fork is target
 who are looking for a good way to bind a hotkey that allows them to quickly change the active audio device at the 
 push of a button.
 
-Get started by typing `AudioSwitch.exe /help`
+Get started by typing `AudioSwitch-CLI.exe /help`
+
+Sample AutoHotKey script for changing audio devices
+
+```AutoHotKey
+; Change devices and play a sound on the new device to confirm
+ActivateAudioDevice(deviceName, outputDevice:=true)
+{
+	type := outputDevice ? "-o" : "-i"
+	sound := "D:\MiscPrograms\AudioSwitch\" . deviceName . ".wav"
+	RunWait D:\MiscPrograms\AudioSwitch\AudioSwitch-CLI.exe %type% -s %deviceName%, Hide
+	SoundPlay %sound%, wait
+}
+
+F5::ActivateAudioDevice("Speakers")
+F6::ActivateAudioDevice("Headset")
+
+#F5::ActivateAudioDevice("DesktopMic", false)
+#F6::ActivateAudioDevice("HeadsetMic", false)
+
+```
